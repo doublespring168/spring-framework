@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 
 import org.springframework.core.ResolvableType;
@@ -28,6 +28,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.testfixture.codec.AbstractDecoderTests;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.util.StreamUtils;
 
@@ -37,14 +38,14 @@ import static org.springframework.core.ResolvableType.forClass;
 /**
  * @author Arjen Poutsma
  */
-public class ResourceDecoderTests extends AbstractDecoderTestCase<ResourceDecoder> {
+class ResourceDecoderTests extends AbstractDecoderTests<ResourceDecoder> {
 
 	private final byte[] fooBytes = "foo".getBytes(StandardCharsets.UTF_8);
 
 	private final byte[] barBytes = "bar".getBytes(StandardCharsets.UTF_8);
 
 
-	public ResourceDecoderTests() {
+	ResourceDecoderTests() {
 		super(new ResourceDecoder());
 	}
 
@@ -79,6 +80,7 @@ public class ResourceDecoderTests extends AbstractDecoderTestCase<ResourceDecode
 	}
 
 	@Override
+	@Test
 	public void decodeToMono() {
 		Flux<DataBuffer> input = Flux.concat(
 				dataBuffer(this.fooBytes),
