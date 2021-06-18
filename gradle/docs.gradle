@@ -3,7 +3,7 @@ configurations {
 }
 
 dependencies {
-	asciidoctorExt("io.spring.asciidoctor:spring-asciidoctor-extensions-block-switch:0.4.3.RELEASE")
+	asciidoctorExt("io.spring.asciidoctor:spring-asciidoctor-extensions-block-switch:0.5.0")
 }
 
 repositories {
@@ -113,7 +113,7 @@ dokka {
 }
 
 task downloadResources(type: Download) {
-	def version = "0.2.2.RELEASE"
+	def version = "0.2.5"
 	src "https://repo.spring.io/release/io/spring/docresources/" +
 			"spring-doc-resources/$version/spring-doc-resources-${version}.zip"
 	dest project.file("$buildDir/docs/spring-doc-resources.zip")
@@ -143,7 +143,8 @@ asciidoctorj {
 			'highlightjs-theme': 'googlecode',
 			stylesdir: 'css/',
 			stylesheet: 'stylesheet.css',
-			'spring-version': project.version
+			'spring-version': project.version,
+			'spring-framework-main-code': 'https://github.com/spring-projects/spring-framework/tree/main'
 	])
 }
 

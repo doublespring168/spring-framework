@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2020 the original author or authors.
+ * Copyright 2002-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,7 +71,7 @@ public abstract class DataBufferUtils {
 	//---------------------------------------------------------------------
 
 	/**
-	 * Obtain a {@link InputStream} from the given supplier, and read it into a
+	 * Obtain an {@link InputStream} from the given supplier, and read it into a
 	 * {@code Flux} of {@code DataBuffer}s. Closes the input stream when the
 	 * Flux is terminated.
 	 * @param inputStreamSupplier the supplier for the input stream to read from
@@ -125,7 +125,7 @@ public abstract class DataBufferUtils {
 	}
 
 	/**
-	 * Obtain a {@code AsynchronousFileChannel} from the given supplier, and
+	 * Obtain an {@code AsynchronousFileChannel} from the given supplier, and
 	 * read it into a {@code Flux} of {@code DataBuffer}s, starting at the given
 	 * position. Closes the channel when the Flux is terminated.
 	 * @param channelSupplier the supplier for the channel to read from
@@ -481,6 +481,24 @@ public abstract class DataBufferUtils {
 	public static <T extends DataBuffer> T retain(T dataBuffer) {
 		if (dataBuffer instanceof PooledDataBuffer) {
 			return (T) ((PooledDataBuffer) dataBuffer).retain();
+		}
+		else {
+			return dataBuffer;
+		}
+	}
+
+	/**
+	 * Associate the given hint with the data buffer if it is a pooled buffer
+	 * and supports leak tracking.
+	 * @param dataBuffer the data buffer to attach the hint to
+	 * @param hint the hint to attach
+	 * @return the input buffer
+	 * @since 5.3.2
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T extends DataBuffer> T touch(T dataBuffer, Object hint) {
+		if (dataBuffer instanceof PooledDataBuffer) {
+			return (T) ((PooledDataBuffer) dataBuffer).touch(hint);
 		}
 		else {
 			return dataBuffer;

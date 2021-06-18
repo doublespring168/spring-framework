@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2020 the original author or authors.
+ * Copyright 2002-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -186,13 +186,6 @@ public interface WebClient {
 		 */
 		Builder baseUrl(String baseUrl);
 
-		/**
-		 * Configure default URI variable values that will be used when expanding
-		 * URI templates using a {@link Map}.
-		 * @param defaultUriVariables the default values to use
-		 * @see #baseUrl(String)
-		 * @see #uriBuilderFactory(UriBuilderFactory)
-		 */
 		/**
 		 * Configure default URL variable values to use when expanding URI
 		 * templates with a {@link Map}. Effectively a shortcut for:
@@ -474,14 +467,14 @@ public interface WebClient {
 		S attributes(Consumer<Map<String, Object>> attributesConsumer);
 
 		/**
-		 * Provide a function to populate the Reactor {@code Context}. In contrast
-		 * to {@link #attribute(String, Object) attributes} which apply only to
-		 * the current request, the Reactor {@code Context} transparently propagates
-		 * to the downstream processing chain which may include other nested or
-		 * successive calls over HTTP or via other reactive clients.
+		 * Provide a function to populate the Reactor {@code Context}.
 		 * @param contextModifier the function to modify the context with
+		 * @deprecated in 5.3.2 to be removed soon after; this method cannot
+		 * provide context to downstream (nested or subsequent) requests and is
+		 * of limited value.
 		 * @since 5.3.1
 		 */
+		@Deprecated
 		S context(Function<Context, Context> contextModifier);
 
 		/**
